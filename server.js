@@ -12,6 +12,12 @@ app.use(cors());
 app.use(bodyParser.json());
 const upload = multer({ dest: 'uploads/' });
 
+// Middleware to allow embedding in iframe
+app.use((req, res, next) => {
+  res.setHeader('X-Frame-Options', 'ALLOWALL'); // This allows the app to be embedded in iframes
+  next();
+});
+
 
 // Convert Text to SOAP Note
 app.post('/api/soap-note', async (req, res) => {
